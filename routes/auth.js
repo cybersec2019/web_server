@@ -14,15 +14,18 @@ router.get('/', function(req, res, next) {
 
 /* Proccess Login */
 router.post('/', function(req, res, next) {
-  var email = req.body.email;
-  var pass = req.body.password;
-  var query = User.findOne({ 'email': email, 'password':pass });
-  query.select('id email password');
-  query.exec(function (err, user) {
-  if (err) return handleError(err);
-  	console.log('Email: %s, Password: %s', user.email, user.password);
-  	res.cookie('logged',user.id);
-  	res.redirect('/member');
-  });
-});
+    var email = req.body.email;
+    var pass = req.body.password;
+    console.log(email)
+    console.log(pass)
+    User.findOne({'email':email, 'password':pass}, function (err, user) {
+        console.log(user)
+        if (err) console.log(err)
+        if(user==null) {res.render('login', { title: 'Login' }); return;}
+
+        res.cookie('logged', user.id);
+        res.redirect('/member');
+    });
+
+})
 module.exports = router;

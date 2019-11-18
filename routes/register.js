@@ -19,8 +19,7 @@ router.post('/', function(req, res, next) {
   	card: req.body.card,
   	password: req.body.password,
   	email: req.body.email
-  });
-
+  },{collection:'users'});
   user.save();
   res.render('login', { title: 'Login' });
 });

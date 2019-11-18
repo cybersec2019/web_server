@@ -15,7 +15,9 @@ var api = require('./routes/api');
 var app = express();
 redirect(app);
 //Connect to Mongoose
-mongoose.connect("localhost:27017/webclient", {useNewUrlParser: true});
+uri="mongodb+srv://ngkhang:3036011053@cluster0-n7zxr.mongodb.net/webclient?retryWrites=true&w=majority"
+mongoose.connect(uri);
+
 var db = mongoose.connection;
 
 // view engine setup

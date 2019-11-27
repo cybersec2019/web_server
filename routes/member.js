@@ -6,9 +6,14 @@ var userdata;
 
 /* Get member page. */
 router.get('/', function(req, res, next) {
+  console.log("Request file:")
+  console.log(req.cookies.logged)
   if(req.cookies.logged){
     var uid = req.cookies.logged;
     var query = User.findOne({ '_id' : uid });
+    if(!query){
+        res.redirect('/login');
+    }
     query.select('name email money card image_url');
     query.exec(function (err, user) {
     if (err) return handleError(err);
@@ -19,6 +24,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/login');
   }
 });
+
 router.get('/withdraw', function(req, res, next) {
   res.render('member', { action: 'WITHDRAW', userdata: userdata, title: 'Withdraw' });
 });

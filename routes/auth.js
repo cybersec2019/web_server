@@ -16,14 +16,14 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var email = req.body.email;
     var pass = req.body.password;
-    console.log(email)
-    console.log(pass)
     User.findOne({'email':email, 'password':pass}, function (err, user) {
-        console.log(user)
+        console.log("-----Req cookie here:---",req.headers)
         if (err) console.log(err)
         if(user==null) {res.render('login', { title: 'Login' }); return;}
 
+
         res.cookie('logged', user.id);
+        //res.cookie("logged","12345");
         res.redirect('/member');
     });
 
